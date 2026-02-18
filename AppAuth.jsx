@@ -36,3 +36,12 @@ function App() {
     </BrowserRouter>
   );
 }
+
+
+/// עדכון האימות בheader
+const response = await fetch('http://localhost:3001/api/data', {
+  headers: {
+    'user-auth': user.name // שליחת שם המשתמש מה-State
+  }
+});
+
