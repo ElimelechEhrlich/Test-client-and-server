@@ -67,3 +67,43 @@ if (response.ok) {
     setFormData({ name: '', email: '' });
 }
 
+
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+function AddDataPage({ onDataAdded }) {
+  const [form, setForm] = useState({ name: '', email: '' });
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const response = await fetch('http://localhost:3001/api/data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form)
+    });
+
+    if (response.ok) {
+      await onDataAdded(); // מחכים שהאבא ימשוך את הנתונים החדשים
+      navigate('/'); // חוזרים לדף הבית (הטבלה)
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <h2>הוספת נתון</h2>
+      <input 
+        placeholder="שם" 
+        onChange={e => setForm({...form, name: e.target.value})} 
+      />
+      <input 
+        placeholder="אימייל" 
+        onChange={e => setForm({...form, email: e.target.value})} 
+      />
+      <button type="submit">שמור וחזור לטבלה</button>
+    </form>
+  );
+}
+
+export default AddDataPage;
+
