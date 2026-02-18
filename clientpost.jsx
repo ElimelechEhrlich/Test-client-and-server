@@ -38,3 +38,18 @@ function AddDataForm() {
         </form>
     );
 }
+
+
+function AddDataForm({ onDataAdded }) {
+    // ... ה-handleSubmit הקודם שלך ...
+    
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const response = await fetch('...', { /* הגדרות ה-POST */ });
+        
+        if (response.ok) {
+            onDataAdded(); // פקודה לאבא: "תמשוך נתונים חדשים!"
+            setFormData({ name: '', email: '' });
+        }
+    };
+}
