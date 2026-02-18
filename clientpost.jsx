@@ -53,3 +53,17 @@ function AddDataForm({ onDataAdded }) {
         }
     };
 }
+
+
+const navigate = useNavigate();
+// אחרי ה-POST המוצלח:
+navigate('/table');
+
+
+
+if (response.ok) {
+    // הוספת האובייקט החדש ישירות ל-State הקיים
+    setData(prevData => [...prevData, formData]);
+    setFormData({ name: '', email: '' });
+}
+
